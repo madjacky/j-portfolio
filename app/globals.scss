@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+
+  --wrapper-content-inline-size: 80vi;
+  --wrapper-inline-offset: 1.875rem;
+  --wrapper-inline-size: min(var(--wrapper-content-inline-size), 100% - var(--wrapper-inline-offset));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+
+
+@layer base {
+  *,
+	*::before,
+	*::after,
+	::backdrop,
+	::file-selector-button {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		font: inherit;
+		border: 0 solid;
+	}
+  :where(html) {
+    block-size: 100%;
+    hanging-punctuation: first last;
+    -webkit-text-size-adjust: none;
+    @media (prefers-reduced-motion: no-preference) {
+			scroll-behavior: smooth;
+		}
+    @media (prefers-reduced-motion: reduce) {
+			html:focus-within {
+				scroll-behavior: auto;
+			}
+
+			*,
+			*::before,
+			*::after {
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+				transition-duration: 0.01ms !important;
+				scroll-behavior: auto !important;
+			}
+		}
+  }
+  :where(body) {
+    min-block-size: 100vh;
+		min-block-size: 100dvh;
+		min-block-size: 100svh;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		text-rendering: optimizeSpeed;
+		-webkit-font-smoothing: antialiased;
+  }
+  :where(h1, h2, h3, h4, h5, h6) {
+		text-wrap: balance;
+	}
+  :where(h1, h2, h3) {
+		line-height: 1.25;
+	}
+  :where(p, li) {
+		text-wrap: pretty;
+	}
+  :where(img, svg, video, canvas, audio, iframe, embed, object) {
+		display: block;
+	}
+  :where(img, svg, video) {
+		block-size: auto;
+		max-inline-size: 100%;
+		object-fit: cover;
+	}
+  :where(svg) {
+		fill: currentColor;
+	}
+}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .wrapper {
+		margin-inline: auto;
+		container-type: inline-size;
+		inline-size: var(--wrapper-inline-size);
+	}
+  .list-reset {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+}
