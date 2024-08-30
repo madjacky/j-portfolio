@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.scss";
+import { cn } from "@/lib/utils";
+import Providers from "@/components/providers";
 
-const inter = Inter({ subsets: ["latin"] });
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+
+const inter = Inter({ subsets: ["latin"], variable: '--font-sans' });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: '--font-serif' });
 
 export const metadata: Metadata = {
   title: "The Internet's own Kiddo",
@@ -15,8 +21,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="page">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="page" suppressHydrationWarning>
+      <body className={cn(
+          'page__body',
+          inter.variable,
+          playfair.variable
+        )}
+      >
+        <Providers>
+          <Header />
+          <main className="main">{children}</main>
+          <Footer />
+        </Providers>
+      </body>
     </html>
   );
 }

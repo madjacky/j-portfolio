@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --background: 98.16% 0.002 247.84;
+    --foreground: 11.24% 0.009 242.17;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
@@ -29,11 +29,25 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    --sh-identifier: #354150;
+    --sh-keyword: #f47067;
+    --sh-string: #00a99a;
+    --sh-class: #8d85ff;
+    --sh-property: #4e8fdf;
+    --sh-entity: #6eafad;
+    --sh-jsxliterals: #bf7db6;
+    --sh-sign: #8996a3;
+    --sh-comment: #a19595;
+
+    --wrapper-content-inline-size: 50vi;
+    --wrapper-inline-offset: 1.875rem;
+    --wrapper-inline-size: min(var(--wrapper-content-inline-size), 100% - var(--wrapper-inline-offset));
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 26.21% 0.009 248.19;
+    --foreground: 98.16% 0.002 247.84;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
@@ -56,6 +70,11 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    --sh-class: #4c97f8;
+    --sh-identifier: white;
+    --sh-keyword: #f47067;
+    --sh-string: #0fa295;
   }
 }
 
@@ -65,5 +84,116 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  body > :is(header, main, footer), section, article {
+    container-type: inline-size;
+  }
+
+  .title {
+    @apply font-serif text-3xl font-bold underline decoration-border/75 decoration-2 underline-offset-8;
+  }
+  .prose pre {
+    @apply overflow-x-auto rounded-lg bg-accent px-5 py-4 text-sm;
+  }
+
+  .prose code {
+    @apply rounded-lg px-1 py-0.5;
+  }
+
+  .prose pre code {
+    @apply p-0;
+    line-height: 1.75;
+  }
+
+  .prose code span {
+    @apply font-medium;
+  }
+}
+
+@layer base {
+  *,
+	*::before,
+	*::after,
+	::backdrop,
+	::file-selector-button {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		font: inherit;
+		border: 0 solid;
+	}
+  :where(html) {
+    block-size: 100%;
+    hanging-punctuation: first last;
+    -webkit-text-size-adjust: none;
+    @media (prefers-reduced-motion: no-preference) {
+			scroll-behavior: smooth;
+		}
+    @media (prefers-reduced-motion: reduce) {
+			html:focus-within {
+				scroll-behavior: auto;
+			}
+
+			*,
+			*::before,
+			*::after {
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+				transition-duration: 0.01ms !important;
+				scroll-behavior: auto !important;
+			}
+		}
+    --isLTR: 1;
+		--isRTL: -1;
+		&:dir(rtl) {
+			--isLTR: -1;
+			--isRTL: 1;
+		}
+  }
+  :where(body) {
+    min-block-size: 100vh;
+		min-block-size: 100dvb;
+		min-block-size: 100svb;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		text-rendering: optimizeSpeed;
+		-webkit-font-smoothing: antialiased;
+  }
+  :where(h1, h2, h3, h4, h5, h6) {
+		text-wrap: balance;
+	}
+  :where(h1, h2, h3) {
+		line-height: 1.1;
+	}
+  :where(p, li) {
+		text-wrap: pretty;
+	}
+  :where(img, svg, video, canvas, audio, iframe, embed, object) {
+		display: block;
+	}
+  :where(img, svg, video) {
+		block-size: auto;
+		max-inline-size: 100%;
+		object-fit: cover;
+	}
+  :where(svg) {
+		fill: currentColor;
+	}
+}
+
+@layer utilities {
+  .page {
+    &__body {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+  }
+  .wrapper {
+    margin-inline: auto;
+		container-type: inline-size;
+		inline-size: var(--wrapper-inline-size);
+  }
+  .description {
+    max-inline-size: 65ch;
   }
 }
